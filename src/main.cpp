@@ -120,12 +120,9 @@ void commonThreeWordPhrase(string word, vector<string>&arr1,vector<string>&arr2,
             arr2.push_back(word);
             arr3.push_back(word);
             if(arr1.size() == 3){
-                for (int i = 0; i < arr1.size(); i++){
-                    if(i == 0)
-                        concatenate = arr1[i];
-                    else
-                        concatenate = concatenate + " " + (string)arr1[i];
-                }
+                for (int i = 0; i < arr1.size(); i++)
+                    i == 0 ? concatenate = arr1[i] : concatenate = concatenate + " " + (string)arr1[i];
+
                 tree.insert(concatenate);
                 arr1.clear();
             }
@@ -139,33 +136,23 @@ void commonThreeWordPhrase(string word, vector<string>&arr1,vector<string>&arr2,
             arr3.push_back(word);
         
         if(arr1.size() == 3) {
-            for (int i = 0; i < arr1.size(); i++){
-                if(i == 0)
-                    concatenate = arr1[i];
-                else
-                    concatenate = concatenate + " " + (string)arr1[i];
-                
-            } 
+            for (int i = 0; i < arr1.size(); i++)
+                i == 0 ? concatenate = arr1[i] : concatenate = concatenate + " " + (string)arr1[i];
+
             tree.insert(concatenate);
             arr1.clear();
         }
         if (arr2.size() == 3) {
-            for (int i = 0; i < arr2.size(); i++){
-                if(i == 0)
-                    concatenate = arr2[i];
-                else
-                    concatenate = concatenate + " " + (string)arr2[i];
-            }
+            for (int i = 0; i < arr2.size(); i++)
+                i == 0 ? concatenate = arr2[i] : concatenate = concatenate + " " + (string)arr2[i];
+
             tree.insert(concatenate);
             arr2.clear();
         }
         if (arr3.size() == 3) {
-            for (int i = 0; i < arr3.size(); i++){
-                if(i == 0)
-                    concatenate = arr3[i];
-                else
-                    concatenate = concatenate + " " + (string)arr3[i];
-            }
+            for (int i = 0; i < arr3.size(); i++)
+                i == 0 ? concatenate = arr3[i] : concatenate = concatenate + " " + (string)arr3[i];
+
             tree.insert(concatenate);
             arr3.clear();
         }
