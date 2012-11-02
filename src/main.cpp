@@ -99,9 +99,9 @@ void compute(vector<int>& numOfWordsBetweenKeywords, string search){
     for ( it=numOfWordsBetweenKeywords.begin() ; it < numOfWordsBetweenKeywords.end(); it++ ){
         sum +=*it;
     }
-    cout << "This is the number of times " << search << " appeared on this program: " << numOfWordsBetweenKeywords.size() << endl;
+    cout << "This is the number of times \"" << search << "\" appeared on the given text: " << numOfWordsBetweenKeywords.size() << endl;
     if(numOfWordsBetweenKeywords.size() != 0)
-        cout << "This the average number of words between each instance of " << search << ": " << sum/numOfWordsBetweenKeywords.size() << endl;
+        cout << "This the average number of words between each instance of \"" << search << "\": " << sum/numOfWordsBetweenKeywords.size() << endl;
 }
 void commonThreeWordPhrase(string word, vector<string>&arr1,vector<string>&arr2,vector<string>&arr3, AvlTree& tree){
     string concatenate = "";
