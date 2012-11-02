@@ -52,7 +52,6 @@ int main(int argc, const char * argv[])
 
 void parse(ifstream& text,string word, string search,vector<int>& numOfWordsBetweenKeywords)
 {
-    int lineCounter = 0;
     int wordCounter = 0;
     vector<string> arr1;
     vector<string> arr2;
@@ -62,7 +61,6 @@ void parse(ifstream& text,string word, string search,vector<int>& numOfWordsBetw
     while(!text.eof())
     {
         getline (text, word);
-        lineCounter++;
         stringstream ss;
         ss << word;
         while (ss)
