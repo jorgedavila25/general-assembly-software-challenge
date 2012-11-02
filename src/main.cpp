@@ -53,35 +53,35 @@ int main(int argc, const char * argv[])
 void parse(ifstream& text,string word, string search,vector<int>& numOfWordsBetweenKeywords)
 {
     int wordCounter = 0;
+    int check = 0;
     vector<string> arr1;
     vector<string> arr2;
     vector<string> arr3;
     AvlTree tree; 
     
-    while(!text.eof())
-    {
+    while(!text.eof()){
         getline (text, word);
         stringstream ss;
         ss << word;
-        while (ss)
-        {
+        while (ss){
             string word2;
             ss >> word2;
             if (word2.length() != 0)// don't count white space as words
                 wordCounter++;
-            if(ss)
-            {
+            if(ss){
                 char letter;
-                for (int j=0; j<word2.length();j++)
-                {
+                for (int j=0; j<word2.length();j++){
                     letter = word2.at(j);
-                    if (((letter < 65) && (letter != 32)) || ((letter > 90) && (letter < 97)) || (letter > 122) )
-                    {
+                    if((letter >= 65 && letter <= 90) || (letter >= 97 && letter <= 122)){
+                        if(check == 1)
+                            word2.erase(j,1);
+                    }else{
                         word2.erase(j, 1);
                         j--;
+                        check = 1;
                     }
-                    
                 }
+                check = 0;
                 if (word2 == search){
                     numOfWordsBetweenKeywords.push_back(wordCounter-1);
                     wordCounter = 0; 
