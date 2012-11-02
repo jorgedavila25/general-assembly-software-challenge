@@ -23,7 +23,7 @@ void commonThreeWordPhrase(string, vector<string>&, vector<string>&, vector<stri
 int main(int argc, const char * argv[])
 {
     string search; 
-	ifstream file;
+    ifstream file;
     vector<int> numOfWordsBetweenKeywords;
     AvlTree test;
     
@@ -35,8 +35,8 @@ int main(int argc, const char * argv[])
     
     
     file.open(argv[1]);
-	if (file.is_open()!= true){
-		cerr << "Couldn't open file" << endl;
+    if (file.is_open()!= true){
+        cerr << "Couldn't open file" << endl;
         return 0;
     }
     cout << "What word would you like to search? ";

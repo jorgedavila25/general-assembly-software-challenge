@@ -7,3 +7,9 @@ Run the program using this sample input file of "War and Peace" in text version 
 Extra Credit
 ===========
 Provide additional output of the most common three word phrase in the text.
+
+To Run
+=======
+go to the src directory ( ```cd src```)
+type: ```g++ -o exe *cpp```
+type: ```./exe ../inputs/war.txt```
