@@ -1,12 +1,10 @@
 #ifndef AVL_TREE_H
 #define AVL_TREE_H
 
-#include <iostream>    // For NULL
+#include <iostream> 
 #include <string>
 using namespace std;
 
-
-//template <typename Comparable>
 class AvlTree
 {
 public:
@@ -24,53 +22,12 @@ public:
     }
     
     /**
-     * Find the smallest item in the tree.
-     * Throw UnderflowException if empty.
-     */
-    const string & findMin( ) const
-    {
-        if( isEmpty( ) )
-            cout << "Empty" << endl; 
-        return findMin( root )->element;
-    }
-    
-    /**
-     * Find the largest item in the tree.
-     * Throw UnderflowException if empty.
-     */
-    const string & findMax( ) const
-    {
-        if( isEmpty( ) )
-            cout << "Empty" << endl; 
-        return findMax( root )->element;
-    }
-    
-    /**
-     * Returns true if x is found in the tree.
-     */
-    bool contains( const string & x ) const
-    {
-        return contains( x, root );
-    }
-    
-    /**
      * Test if the tree is logically empty.
      * Return true if empty, false otherwise.
      */
     bool isEmpty( ) const
     {
         return root == NULL;
-    }
-    
-    /**
-     * Print the tree contents in sorted order.
-     */
-    void printTree( ) const
-    {
-        if( isEmpty( ) )
-            cout << "Empty tree" << endl;
-        else
-            printTree( root );
     }
     
     /**
@@ -88,30 +45,10 @@ public:
     {
         insert( x, root );
     }
+    string getLargestElement(){ return largest->element; };
+    int getLargest(){ return largest->numberOfTimes; };
     
-    /**
-     * Remove x from the tree. Nothing is done if x is not found.
-     */
-    void remove( const string & x )
-    {
-        cout << "Sorry, remove unimplemented; " << x <<
-        " still present" << endl;
-    }
-    
-    /**
-     * Deep copy.
-     */
-    const AvlTree & operator=( const AvlTree & rhs )
-    {
-        if( this != &rhs )
-        {
-            makeEmpty( );
-            root = clone( rhs.root );
-        }
-        return *this;
-    }
-    
-
+private:
     struct AvlNode // the Struct of the AVL Node
     {
         string element;
@@ -128,10 +65,8 @@ public:
             numberOfTimes = num;
         };
     };;
-    AvlNode *largest;
-private:
     AvlNode *root;
- 
+    AvlNode *largest;
     
     
     /**
@@ -174,32 +109,19 @@ private:
         
         t->height = max( height( t->left ), height( t->right ) ) + 1;
     }
-    
-    /**
-     * Internal method to find the smallest item in a subtree t.
-     * Return node containing the smallest item.
+    /*
+     *  Internal method to make subtree empty
      */
-    AvlNode * findMin( AvlNode *t ) const
-    {
-        if( t == NULL )
-            return NULL;
-        if( t->left == NULL )
-            return t;
-        return findMin( t->left );
-    }
-    
-    /**
-     * Internal method to find the largest item in a subtree t.
-     * Return node containing the largest item.
-     */
-    AvlNode * findMax( AvlNode *t ) const
-    {
-        if( t != NULL )
-            while( t->right != NULL )
-                t = t->right;
-        return t;
-    }
-    
+     void makeEmpty( AvlNode * &t )
+     {
+        if( t!= NULL)
+        {
+            makeEmpty( t-> left );
+            makeEmpty( t-> right);
+            delete t;
+        }
+        t = NULL;
+     }
     
     /**
      * Internal method to test if an item is in a subtree.
@@ -218,43 +140,6 @@ private:
             return true;    // Match
     }
     
-    /**
-     * Internal method to make subtree empty.
-     */
-    void makeEmpty( AvlNode * & t )
-    {
-        if( t != NULL )
-        {
-            makeEmpty( t->left );
-            makeEmpty( t->right );
-            delete t;
-        }
-        t = NULL;
-    }
-    
-    /**
-     * Internal method to print a subtree rooted at t in sorted order.
-     */
-    void printTree( AvlNode *t ) const
-    {
-        if( t != NULL )
-        {
-            printTree( t->left );
-            cout << t->element << endl;
-            printTree( t->right );
-        }
-    }
-    
-    /**
-     * Internal method to clone subtree.
-     */
-    AvlNode * clone( AvlNode *t ) const
-    {
-        if( t == NULL )
-            return NULL;
-        else
-            return new AvlNode( t->element, clone( t->left ), clone( t->right ), t->height );
-    }
     // Avl manipulations
     /**
      * Return the height of node t or -1 if NULL.

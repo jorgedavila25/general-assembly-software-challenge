@@ -16,16 +16,20 @@
 
 using namespace std;
 
-void compute(vector<int>&, string);
-void parse(ifstream&,string, string, vector<int>&);
-void commonThreeWordPhrase(string, vector<string>&, vector<string>&, vector<string>&, AvlTree&);
+void compute( vector<int>&, string );
+void parse( ifstream&,string, vector<int>&, vector<string>, vector<string> , vector<string>, AvlTree& );
+void commonThreeWordPhrase( string, vector<string>&, vector<string>&, vector<string>&, AvlTree& );
+void viewCommonThreeWordPhrases( AvlTree& );
 
 int main(int argc, const char * argv[])
 {
     string search; 
     ifstream file;
     vector<int> numOfWordsBetweenKeywords;
-    AvlTree test;
+    vector<string> arr1;
+    vector<string> arr2;
+    vector<string> arr3;
+    AvlTree tree;
     
     if (argc != 2){
         cout << "You did not enter a file. (i.e  ./exe text.txt) \n";
@@ -42,22 +46,18 @@ int main(int argc, const char * argv[])
     cout << "What word would you like to search? ";
     cin >> search;
     
-    string word;
-    parse(file, word, search,numOfWordsBetweenKeywords);
-    compute(numOfWordsBetweenKeywords, search);
-    
+    parse( file, search,numOfWordsBetweenKeywords, arr1, arr2, arr3, tree );
+    compute( numOfWordsBetweenKeywords, search );
+    viewCommonThreeWordPhrases( tree );
 
     return 0;
 }
 
-void parse(ifstream& text,string word, string search,vector<int>& numOfWordsBetweenKeywords)
+void parse(ifstream& text, string search,vector<int>& numOfWordsBetweenKeywords, vector<string> arr1, vector<string> arr2, vector<string> arr3, AvlTree& tree)
 {
     int wordCounter = 0;
     int check = 0;
-    vector<string> arr1;
-    vector<string> arr2;
-    vector<string> arr3;
-    AvlTree tree; 
+    string word;
     
     while(!text.eof()){
         getline (text, word);
@@ -66,7 +66,7 @@ void parse(ifstream& text,string word, string search,vector<int>& numOfWordsBetw
         while (ss){
             string word2;
             ss >> word2;
-            if (word2.length() != 0)// don't count white space as words
+            if (word2.length() != 0)// don't count white spaces as words
                 wordCounter++;
             if(ss){
                 char letter;
@@ -90,8 +90,6 @@ void parse(ifstream& text,string word, string search,vector<int>& numOfWordsBetw
             }
         }
     }
-    cout << "Most common three word phrase is: " << tree.largest->element << endl;
-    cout << "It appeared: " << tree.largest-> numberOfTimes << " times." << endl;
 }
 void compute(vector<int>& numOfWordsBetweenKeywords, string search){
     float sum = 0;
@@ -103,7 +101,7 @@ void compute(vector<int>& numOfWordsBetweenKeywords, string search){
     if(numOfWordsBetweenKeywords.size() != 0)
         cout << "This the average number of words between each instance of \"" << search << "\": " << sum/numOfWordsBetweenKeywords.size() << endl;
 }
-void commonThreeWordPhrase(string word, vector<string>&arr1,vector<string>&arr2,vector<string>&arr3, AvlTree& tree){
+void commonThreeWordPhrase(string word, vector<string>&arr1, vector<string>&arr2, vector<string>&arr3, AvlTree& tree){
     string concatenate = "";
  
     
@@ -155,4 +153,8 @@ void commonThreeWordPhrase(string word, vector<string>&arr1,vector<string>&arr2,
             arr3.clear();
         }
     }
+}
+void viewCommonThreeWordPhrases( AvlTree& tree ){
+    cout << "Most common three word phrase is: " << tree.getLargestElement() << endl;
+    cout << "It appeared: " << tree.getLargest() << " times." << endl;
 }
